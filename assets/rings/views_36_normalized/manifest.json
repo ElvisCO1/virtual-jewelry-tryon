@@ -1,0 +1,885 @@
+{
+  "canvas_size": [
+    288,
+    288
+  ],
+  "target_anchor": [
+    144,
+    144
+  ],
+  "method": "integer translation; center of largest alpha>=128 component bounding box",
+  "scale_factor": 1.0,
+  "calibrated": false,
+  "notes": [
+    "Original RGBA pixels preserved, without resampling or cleanup.",
+    "Shared pixel scale preserved; physical scale and perspective are not calibrated.",
+    "Estimated anchors require manual visual validation.",
+    "Existing clipped edges and halos are not repaired."
+  ],
+  "images": [
+    {
+      "filename": "ring_az000_el_000.png",
+      "source_sha256": "3dcad122144af4ed14287eacf68625f6ae172a63042f2fe9e86f4de66d1012cd",
+      "output_sha256": "a270d341bcb664090693ed11d3295e7a5743ef1bde322571519bc391cd9e1073",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        118,
+        80
+      ],
+      "foreground_bbox_xywh": [
+        31,
+        34,
+        175,
+        94
+      ],
+      "offset_xy": [
+        26,
+        64
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az000_el_m30.png",
+      "source_sha256": "3697bbd5d707eb70d94afd39da8303aa2d7a5db03795b76acbd8e49e80d84637",
+      "output_sha256": "6507426afde0ef5e34ff31c6e2e3fe01f3218866a165905c2892990a2a769859",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        119,
+        126
+      ],
+      "foreground_bbox_xywh": [
+        30,
+        75,
+        179,
+        103
+      ],
+      "offset_xy": [
+        25,
+        18
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az000_el_p30.png",
+      "source_sha256": "6a22dccb56bed183badfa685e9c4ff49a96b12e9a0a4a2378574a2535b6ef754",
+      "output_sha256": "7a4a417ca70d8da17e08f9fdb0acd3101df1cceb855a2adcaa4bc207660265c1",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        118,
+        86
+      ],
+      "foreground_bbox_xywh": [
+        33,
+        38,
+        172,
+        96
+      ],
+      "offset_xy": [
+        26,
+        58
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az030_el_000.png",
+      "source_sha256": "3e28b06c4fc376564951fab5eb4c72831b4e8c329519d97b0d7e61a315812c1c",
+      "output_sha256": "e024cdfa343cfef73999a46697c6fc6ded8a4d04300427b0aa7197bd4e6e9854",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        116,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        43,
+        18,
+        147,
+        117
+      ],
+      "offset_xy": [
+        28,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az030_el_m30.png",
+      "source_sha256": "1f2a6210b86592575de727af620c63b12aadcdb08b2c4cf6c8f92f1e798099fe",
+      "output_sha256": "88cf3007dccc964766d83aa3d1f6b8ff27edb2bd583490f29b18f3ce2f38c18f",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        118,
+        120
+      ],
+      "foreground_bbox_xywh": [
+        48,
+        60,
+        140,
+        121
+      ],
+      "offset_xy": [
+        26,
+        24
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az030_el_p30.png",
+      "source_sha256": "8617a6bf3094a0445a1542bb3e2e4e1dd70b66a914df4abd1a919347aa1da1b4",
+      "output_sha256": "99bd74dab87ca049b875b3b6548a7aa477d8c7205b6fcd2b2570552f156a5e6d",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        120,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        50,
+        20,
+        140,
+        114
+      ],
+      "offset_xy": [
+        24,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az060_el_000.png",
+      "source_sha256": "26af62d13e4b48b9baa1a005700f96dc2754a6d026e8991855e9ae8da35a0ccd",
+      "output_sha256": "9212597aaab6497942f998a4af72235ec72a764d8b32ede3d109eefea85789fa",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        108,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        36,
+        18,
+        144,
+        117
+      ],
+      "offset_xy": [
+        36,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az060_el_m30.png",
+      "source_sha256": "9cca47609ace6e97d9274a13ed2caaee52aa9c255952d705e6f9f43257bc76a2",
+      "output_sha256": "e0de00e7afd4f89bfbeb95740891b4f5529b9994306b646ea8c4ac4d8d90ef66",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        103,
+        121
+      ],
+      "foreground_bbox_xywh": [
+        34,
+        62,
+        139,
+        119
+      ],
+      "offset_xy": [
+        41,
+        23
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az060_el_p30.png",
+      "source_sha256": "50bbff9579d557a98486c1685740a131559b190e7c83ac24a401cc4045b57e65",
+      "output_sha256": "c16275753081b5db9f78f8f254b53faa796a29cb811803fbc3f820dca91972e3",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        112,
+        80
+      ],
+      "foreground_bbox_xywh": [
+        44,
+        26,
+        136,
+        108
+      ],
+      "offset_xy": [
+        32,
+        64
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az090_el_000.png",
+      "source_sha256": "fd385f8e764c5a9ae2efd3ed7131b208181a450bdf8fb32088131d25dc0767d7",
+      "output_sha256": "5d488188b5cef1681462a7605387f7be7f44e96231ab990efebcbc2d736564ae",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        100,
+        73
+      ],
+      "foreground_bbox_xywh": [
+        30,
+        12,
+        141,
+        123
+      ],
+      "offset_xy": [
+        44,
+        71
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az090_el_m30.png",
+      "source_sha256": "31cb3ff1ba7a132374c99d84c208542f5855682e48a87fa91b564111d52a6218",
+      "output_sha256": "c4f3a671876f5591a0c8d15e6480aee0e2139c1c8cfe7753691065ad72735be6",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        100,
+        118
+      ],
+      "foreground_bbox_xywh": [
+        31,
+        52,
+        140,
+        134
+      ],
+      "offset_xy": [
+        44,
+        26
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az090_el_p30.png",
+      "source_sha256": "a74ab67d313805bbd239e5134fffbbb5246b60d304f8e741375583f71d4c396a",
+      "output_sha256": "ab6280cb8fa5ff0fef135bc6fabe281f88c0c15b9d9ffe69ec9b430344bae5da",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        100,
+        74
+      ],
+      "foreground_bbox_xywh": [
+        31,
+        16,
+        140,
+        118
+      ],
+      "offset_xy": [
+        44,
+        70
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az120_el_000.png",
+      "source_sha256": "7d14ae0db4e1fd2fecd29c75b21cbbe59a05d2b3da81e061079eb3c2dae8d725",
+      "output_sha256": "c4bcc7a8ad60324e12651a67d2163a9cb18491b7a032286f7ee6cafbab4b5628",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        110,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        34,
+        17,
+        153,
+        118
+      ],
+      "offset_xy": [
+        34,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az120_el_m30.png",
+      "source_sha256": "0363a33ffc38ed0fddbd9ef52e7e4ef2a01c72d0c51ac543e31179ae725ebb5c",
+      "output_sha256": "8ec1b752a3ec7a32dc77c9622a8c506650f80b1f92792380e170bec7cfc769b4",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        112,
+        122
+      ],
+      "foreground_bbox_xywh": [
+        39,
+        62,
+        147,
+        121
+      ],
+      "offset_xy": [
+        32,
+        22
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az120_el_p30.png",
+      "source_sha256": "4b70ec16b2871341e906c0488b60d099d02382deb75626e6a2ecc2a78e630c16",
+      "output_sha256": "f17dd27667023b5c523a66c7c6f83b15c1d6a3518e6d15bc23ba38c1ec42b3e5",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        108,
+        80
+      ],
+      "foreground_bbox_xywh": [
+        34,
+        27,
+        148,
+        107
+      ],
+      "offset_xy": [
+        36,
+        64
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az150_el_000.png",
+      "source_sha256": "588559f062da155454a6390729d6b69618511701eb7a9379ab0326c7e8589de9",
+      "output_sha256": "ed4d027ea2b4d6c173495353afe91fe2e51a875ceb34ea52fe6ea62299df3372",
+      "source_size": [
+        209,
+        135
+      ],
+      "source_anchor": [
+        102,
+        80
+      ],
+      "foreground_bbox_xywh": [
+        23,
+        26,
+        159,
+        109
+      ],
+      "offset_xy": [
+        42,
+        64
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az150_el_m30.png",
+      "source_sha256": "57d6d609c1a0a656f21049a4b92e26799b9dfb5a7c3042b54e2c01542ac875da",
+      "output_sha256": "d253faf944c68246e805a032e6492c02c2c7e85163c75254ec127ef5b616a3e9",
+      "source_size": [
+        209,
+        186
+      ],
+      "source_anchor": [
+        104,
+        127
+      ],
+      "foreground_bbox_xywh": [
+        25,
+        73,
+        158,
+        109
+      ],
+      "offset_xy": [
+        40,
+        17
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az150_el_p30.png",
+      "source_sha256": "bb4966fccb997fff3586344d390b76b3768b395cba5e02b2b7c37e5903d793cb",
+      "output_sha256": "803a7f6aec7f066dceb65c0a2634602c5b23fcbaaf464c1495e389ac638b6fc9",
+      "source_size": [
+        209,
+        134
+      ],
+      "source_anchor": [
+        106,
+        81
+      ],
+      "foreground_bbox_xywh": [
+        33,
+        29,
+        146,
+        105
+      ],
+      "offset_xy": [
+        38,
+        63
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az180_el_000.png",
+      "source_sha256": "28faa93d07c084e5f192ab18947cd2b06754b1339e29e80ef629e2450820eb41",
+      "output_sha256": "ff4d7aed83e35b32303a4b27d03e5c51e3ea128e3d8533fdecad2b14ff2618ab",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        116,
+        88
+      ],
+      "foreground_bbox_xywh": [
+        35,
+        26,
+        164,
+        125
+      ],
+      "offset_xy": [
+        28,
+        56
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az180_el_m30.png",
+      "source_sha256": "e1906fedcb5057f6ba742f9d84624840363df5e401d6ba040a7208d70fa6f396",
+      "output_sha256": "b96f1ce7eaca4859c33adbec5663de6d7fdb8a14794da39a44c8a338aa9ceda5",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        118,
+        93
+      ],
+      "foreground_bbox_xywh": [
+        37,
+        32,
+        162,
+        123
+      ],
+      "offset_xy": [
+        26,
+        51
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az180_el_p30.png",
+      "source_sha256": "050e437597907e9a25fa1cc564ff630456bf24a1404b7498255479159089843d",
+      "output_sha256": "12076c86fb665cb1ea952a3d27bba92b25c265e2f5ddb17312c6b83947ee6173",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        116,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        35,
+        21,
+        162,
+        112
+      ],
+      "offset_xy": [
+        28,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az210_el_000.png",
+      "source_sha256": "abdfce6694713193cf951b01a24fdc1d8fb36ac6335c1b677860b378d8a2424e",
+      "output_sha256": "3a6b8a2caf86752678ba22382c23647263ba53574caae17872048890764dd9c0",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        118,
+        83
+      ],
+      "foreground_bbox_xywh": [
+        48,
+        19,
+        142,
+        129
+      ],
+      "offset_xy": [
+        26,
+        61
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az210_el_m30.png",
+      "source_sha256": "64837f13e3ead58c55f507774bdbc506559b03004365195bebcb54ebc796946e",
+      "output_sha256": "dcf22eb6ee535625f3f5552fe8d06faf6639a1ef694d23d47908769104a89cba",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        116,
+        90
+      ],
+      "foreground_bbox_xywh": [
+        47,
+        25,
+        138,
+        130
+      ],
+      "offset_xy": [
+        28,
+        54
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az210_el_p30.png",
+      "source_sha256": "53c55d56e31cda2dceb1563c73f8eb75dc9a39eddca13e5b95ce362eae2f7505",
+      "output_sha256": "4da3e1b8b55f4bed26e6e77ba72dad98da3628dee92b0c8bea9fa1d688a13e40",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        118,
+        75
+      ],
+      "foreground_bbox_xywh": [
+        48,
+        18,
+        140,
+        115
+      ],
+      "offset_xy": [
+        26,
+        69
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az240_el_000.png",
+      "source_sha256": "464bba71283ac0750c27eb7ba3bcc00892fe109976b8d69417a0562f1b9a7a40",
+      "output_sha256": "7b91f480ee53bca6bc3d991d22deb76ccc332dcd5841d011fa98c696171967e0",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        122,
+        82
+      ],
+      "foreground_bbox_xywh": [
+        50,
+        18,
+        145,
+        130
+      ],
+      "offset_xy": [
+        22,
+        62
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az240_el_m30.png",
+      "source_sha256": "eab5833a1553df340301ee2e0e5faa5b4a87c933d3597d3ff82bd579e3f8ca90",
+      "output_sha256": "d2c44211d1decfbd22cf0cbabb69929a05df32481c2fa4cddc5f51fc7e5490fc",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        124,
+        89
+      ],
+      "foreground_bbox_xywh": [
+        52,
+        24,
+        144,
+        131
+      ],
+      "offset_xy": [
+        20,
+        55
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az240_el_p30.png",
+      "source_sha256": "1eb688f552e0deaa72f2bb05bc7a564c0969a822baa614cda36b0f03aa39babc",
+      "output_sha256": "01fb29e14b588f01ba8f524d01c35ebbcb1755d3f3ad27bf0664ae5d5689170c",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        116,
+        74
+      ],
+      "foreground_bbox_xywh": [
+        46,
+        17,
+        141,
+        116
+      ],
+      "offset_xy": [
+        28,
+        70
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az270_el_000.png",
+      "source_sha256": "c3af69d4e8974e35eedc270f4d77db32287cbae38cb11d5b7b69d6c8cce2c7cc",
+      "output_sha256": "c1405b9443a3a78e992a7f35da51d3e58145649a87538cf1c6951330350c67da",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        100,
+        86
+      ],
+      "foreground_bbox_xywh": [
+        30,
+        22,
+        141,
+        129
+      ],
+      "offset_xy": [
+        44,
+        58
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az270_el_m30.png",
+      "source_sha256": "9c76409b2856af0661ef36b32f6e449b40ee56f97bcc051ab77cc07a681ab48a",
+      "output_sha256": "574d8facc2eeda6d4551113257f001b4a0126f110c83d1050a3757fe8d66e86b",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        100,
+        90
+      ],
+      "foreground_bbox_xywh": [
+        28,
+        26,
+        144,
+        129
+      ],
+      "offset_xy": [
+        44,
+        54
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az270_el_p30.png",
+      "source_sha256": "5fcd4daeecdb922688bbe8446a1dff1f556ce0f955336354f8705a9fc06dace6",
+      "output_sha256": "44f076591ac838ae8e0e6e22fd3a12bd16184a4f2f07eaa0be1688c811bf99e4",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        101,
+        74
+      ],
+      "foreground_bbox_xywh": [
+        32,
+        17,
+        139,
+        116
+      ],
+      "offset_xy": [
+        43,
+        70
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az300_el_000.png",
+      "source_sha256": "099f4f3bb74850d6761bca8aea4cf4d9f3873a88b7987c8d912062694785a245",
+      "output_sha256": "08ddb36316e0c31ac55463aa90fab8d0e1e80cceb8ad0e26a617a6abc1d737a8",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        88,
+        85
+      ],
+      "foreground_bbox_xywh": [
+        15,
+        23,
+        146,
+        125
+      ],
+      "offset_xy": [
+        56,
+        59
+      ],
+      "foreground_touches_source_edge": false
+    },
+    {
+      "filename": "ring_az300_el_m30.png",
+      "source_sha256": "6d162cc18aebe32cfb92993fe9befec36db6d416c1df778f3adea021a5651752",
+      "output_sha256": "f075def5c10a55a35bef87c17ae1d04d60d6f30dbe2ff67b7ba35d1e70d0f354",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        88,
+        91
+      ],
+      "foreground_bbox_xywh": [
+        17,
+        28,
+        142,
+        127
+      ],
+      "offset_xy": [
+        56,
+        53
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az300_el_p30.png",
+      "source_sha256": "94552b344fb0b784f1dbd30d2a87e9c732d7a72207fad6e79cc044c89498399f",
+      "output_sha256": "2a9a9de32bc1cf91b50ccaee25f9cb223bbaa23e585a3a68980ebb97ce3aade9",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        93,
+        75
+      ],
+      "foreground_bbox_xywh": [
+        21,
+        18,
+        145,
+        115
+      ],
+      "offset_xy": [
+        51,
+        69
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az330_el_000.png",
+      "source_sha256": "34c2debe3ea4ec920048db51586d53c911feace97cca087e2c8ab2504468dce9",
+      "output_sha256": "5290d999042d83ec354a4dc04044033911e469e8f832edbd8846490f91fa6d88",
+      "source_size": [
+        209,
+        151
+      ],
+      "source_anchor": [
+        98,
+        91
+      ],
+      "foreground_bbox_xywh": [
+        20,
+        32,
+        157,
+        119
+      ],
+      "offset_xy": [
+        46,
+        53
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az330_el_m30.png",
+      "source_sha256": "597ec767abe6a8a6329b676a84e938b69cc838461384a0d516247e3a5f1201a5",
+      "output_sha256": "c850162bdbd2185cc1f6823e13dfd29566165ed260c4bb1ce30c8fde50d6b0a5",
+      "source_size": [
+        209,
+        155
+      ],
+      "source_anchor": [
+        100,
+        94
+      ],
+      "foreground_bbox_xywh": [
+        21,
+        34,
+        158,
+        121
+      ],
+      "offset_xy": [
+        44,
+        50
+      ],
+      "foreground_touches_source_edge": true
+    },
+    {
+      "filename": "ring_az330_el_p30.png",
+      "source_sha256": "896f4a243dbd9dc1ebf41beba0a39474dd257f9b9f4b9d87c7ff29b52f72e1d6",
+      "output_sha256": "72571f16a07a45b2b04c9dfb12bbd97fe1804514e974950d1218dcc2769439e7",
+      "source_size": [
+        209,
+        133
+      ],
+      "source_anchor": [
+        100,
+        76
+      ],
+      "foreground_bbox_xywh": [
+        25,
+        21,
+        152,
+        112
+      ],
+      "offset_xy": [
+        44,
+        68
+      ],
+      "foreground_touches_source_edge": true
+    }
+  ]
+}
