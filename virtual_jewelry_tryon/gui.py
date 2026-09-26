@@ -82,6 +82,17 @@ class TryOnWindow:
             ttk.Button(camera, text="Calibrar mm", command=self.calibrate_width).grid(row=6, column=1, sticky="ew")
             ttk.Button(camera, text="Quitar calibración", command=self.clear_calibration).grid(row=7, column=0, columnspan=2, sticky="ew")
             ttk.Label(camera, text="Mantén distancia y postura al calibrar.", wraplength=240).grid(row=8, column=0, columnspan=2, sticky="w")
+        self.manual_width_visible = tk.BooleanVar(value=False)
+        self.manual_width_toggle = ttk.Checkbutton(camera, text="Mostrar referencia de ancho",
+            variable=self.manual_width_visible, command=self.change_manual_width)
+        self.manual_width_toggle.grid(row=9, column=0, columnspan=2, sticky="w", pady=(8, 0))
+        self.manual_width_value = tk.DoubleVar(value=60)
+        self.manual_width_slider = ttk.Scale(camera, from_=10, to=200, variable=self.manual_width_value,
+            command=self.change_manual_width)
+        self.manual_width_slider.grid(row=10, column=0, columnspan=2, sticky="ew")
+        self.manual_width_description = tk.StringVar(value="Ancho manual: 60 % del segmento")
+        ttk.Label(camera, textvariable=self.manual_width_description, wraplength=240).grid(
+            row=11, column=0, columnspan=2, sticky="w")
         self.mode = tk.StringVar(value=self._automatic_label)
         self.mode_selector = ttk.Combobox(views, textvariable=self.mode, state="readonly", width=24,
                                          values=(self._automatic_label, "Manual — 36 vistas"))
@@ -334,6 +345,13 @@ class TryOnWindow:
         references = "visibles" if self.session.show_references else "ocultas"
         ring = "habilitado" if self.session.show_ring else "oculto · Captura deshabilitada"
         self.status.set(f"Cámara {camera_state} · Anillo {ring} · Referencias {references} · d: datos en la terminal")
+
+    def change_manual_width(self, event=None):
+        self.session.show_manual_width = self.manual_width_visible.get()
+        self.session.manual_width_ratio = self.manual_width_value.get() / 100
+        self.manual_width_description.set(f"Ancho manual: {self.manual_width_value.get():.0f} % del segmento")
+        self._displayed_snapshot = None
+        self._refresh_capture()
 
     def change_size(self, event=None):
         self.session.size_factor = self.size_value.get() / 100

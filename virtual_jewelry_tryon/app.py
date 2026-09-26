@@ -17,6 +17,7 @@ from .geometry_view import draw_geometry
 from .ring_overlay import load_ring, overlay_ring
 from .occlusion import METHOD as OCCLUSION_METHOD
 from .finger_width import estimate_width
+from .manual_width import width_reference, draw_width_reference
 from .features import FINGER_WIDTH_ENABLED
 from .smoothing import HandPoseSmoother, RingPose
 from .hand_orientation import estimate_orientation, select_ring_view, SurfaceTracker
@@ -40,10 +41,12 @@ class FrameProcessor:
 
     def process(self, frame, show_references=True, manual_view=None, show_ring=True,
                 finger="ring", position=0.5, occlusion=False, size_factor=1.0, calibration=None,
-                measure_width=FINGER_WIDTH_ENABLED):
+                measure_width=FINGER_WIDTH_ENABLED, show_manual_width=False, manual_width_ratio=0.6):
         """Return the annotated frame without opening a display window."""
         if not isfinite(size_factor) or not 0.5 <= size_factor <= 2.0:
             raise ValueError("Ring size factor must be between 0.5 and 2.0.")
+        if not isfinite(manual_width_ratio) or not .1 <= manual_width_ratio <= 2:
+            raise ValueError("Manual width ratio must be between 0.1 and 2.0.")
         frame_time = datetime.now(timezone.utc).isoformat()
         result = self.detector.detect(frame)
         height, width = frame.shape[:2]
@@ -70,6 +73,8 @@ class FrameProcessor:
             self.smoother = HandPoseSmoother(self.config.smoothing)
             self._placement_settings = (finger, position)
         poses = self.smoother.update(labels, poses, time.monotonic())
+        manual_widths = [width_reference(p, g.distance_px, manual_width_ratio)
+                         for p, g in zip(poses, geometries)] if show_manual_width else None
         # Measure the original camera image BEFORE landmarks or jewelry are drawn.
         widths = [estimate_width(frame, p.center, p.angle, g.distance_px) if p else None
                   for p, g in zip(poses, geometries)] if measure_width else [None] * len(poses)
@@ -100,7 +105,7 @@ class FrameProcessor:
         display_frame = draw_geometry(
             frame, geometries, labels, orientation_lines, show_references=show_references,
             finger=finger, placement_centers=[p.center if p else None for p in poses],
-            widths=widths if measure_width else None
+            widths=widths if measure_width else None, manual_widths=manual_widths
         )
         for pose, view in zip(poses, views):
             # Apply user sizing after tracking so it responds immediately without
@@ -117,6 +122,9 @@ class FrameProcessor:
                 options = {"occlusion": True} if occlusion else {}
                 overlay_ring(display_frame[:height, :width], selected_ring, pose, self.config.asset_angle, **options)
         self._debug = result, frame.shape, orientations, surfaces, views
+        # Independent of landmarks and ring visibility; draw last for comparison.
+        for reference in manual_widths or []:
+            draw_width_reference(display_frame[:height, :width], reference)
         self.last_snapshot = None
         if manual_view is not None:
             # Copy numerical values from THIS frame, never store image arrays.
@@ -134,6 +142,8 @@ class FrameProcessor:
                              "smoothing": self.config.smoothing, "show_references": show_references,
                              "show_ring": show_ring, "finger": finger, "size_factor": size_factor,
                              "width_measurement_enabled": measure_width,
+                             "show_manual_width": show_manual_width,
+                             "manual_width_ratio": manual_width_ratio,
                              "width_calibration": calibration if measure_width else None,
                              "occlusion": occlusion, "occlusion_method": OCCLUSION_METHOD if occlusion else None,
                              "position_fraction": position, "landmark_indices": list(FINGER_INDICES[finger])},
@@ -144,6 +154,7 @@ class FrameProcessor:
                     "world_landmarks_m": points(world[i]) if i < len(world) else None,
                     "geometry_px": asdict(geometries[i]),
                     "finger_width": widths[i],
+                    "manual_width_reference": manual_widths[i] if manual_widths is not None else None,
                     "raw_pose": asdict(raw_poses[i]) if raw_poses[i] else None,
                     "smoothed_pose": asdict(poses[i]) if poses[i] else None,
                     "requested_overlay_width_px": poses[i].width * size_factor * manual_view.width_scale if poses[i] else None,
@@ -177,6 +188,8 @@ class PreviewSession:
         self.position = 0.5
         self.occlusion = False
         self.size_factor = 1.0
+        self.show_manual_width = False
+        self.manual_width_ratio = 0.6
         self.calibration = None
         self.manual_view = None
 
@@ -212,7 +225,8 @@ class PreviewSession:
         return self.processor.process(
             frame, show_references=self.show_references, manual_view=self.manual_view,
             show_ring=self.show_ring, finger=self.finger, position=self.position,
-            occlusion=self.occlusion, size_factor=self.size_factor, calibration=self.calibration
+            occlusion=self.occlusion, size_factor=self.size_factor, calibration=self.calibration,
+            show_manual_width=self.show_manual_width, manual_width_ratio=self.manual_width_ratio
         )
 
     def stop(self):

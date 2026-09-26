@@ -119,6 +119,21 @@ conecta los controles. La elección automática front/back continúa disponible.
 
 ### Distribución de los controles
 
+**Referencia manual de ancho:** en **Cámara y visualización**, activa **Mostrar
+referencia de ancho** y ajusta su deslizador hasta que los extremos cian coincidan
+con los bordes del dedo. Puedes ocultar tanto el anillo como los landmarks;
+la marca tiene visibilidad independiente. El panel muestra **Ancho manual** en
+píxeles. No es detección automática ni una medida en milímetros.
+
+Su longitud es la distancia del segmento seleccionado multiplicada por el ajuste
+(10–200 %, inicialmente 60 %). La línea es perpendicular al dedo y está centrada
+en la misma posición suavizada que el anillo. Se aplica a las manos detectadas y
+acompaña aproximadamente los cambios de distancia; vuelve a ajustarla si cambia
+la perspectiva. **Todavía no modifica el tamaño de la joya.** Las nuevas capturas
+guardan `settings.show_manual_width`, `manual_width_ratio` y
+`hand.manual_width_reference` (ancho en píxeles y extremos, o `null` si está oculta).
+Cambiar el ajuste espera un nuevo fotograma antes de permitir capturar.
+
 **Ancho del dedo: desactivado temporalmente.** Tras las pruebas con webcam, la
 estimación no resultó suficientemente fiable. Los controles de calibración, la
 línea cian y las lecturas de ancho/mm están ocultos; el cálculo no se ejecuta en

@@ -6,13 +6,15 @@ from .geometry import FINGER_INDICES
 
 
 def draw_geometry(frame, geometries, labels, orientation_lines=None, show_references=True,
-                  finger="ring", placement_centers=None, widths=None):
+                  finger="ring", placement_centers=None, widths=None, manual_widths=None):
     """Return a video frame with highlights and a measurement panel on the right."""
     height, width = frame.shape[:2]
     indices = FINGER_INDICES[finger]
     segment = f"{indices[0]}->{indices[1]}"
     # Each detected hand gets its own panel block; the original image is unscaled.
     block_height = 310 if orientation_lines is not None else 240
+    if manual_widths is not None:
+        block_height += 21
     panel_height = max(height, 70 + block_height * len(geometries))
     output = cv2.copyMakeBorder(
         frame, 0, panel_height - height, 0, 390, cv2.BORDER_CONSTANT, value=(25, 25, 25)
@@ -59,6 +61,9 @@ def draw_geometry(frame, geometries, labels, orientation_lines=None, show_refere
         ])
         if orientation_lines is not None:
             lines.extend(orientation_lines[hand_index])
+        if manual_widths is not None:
+            reference = manual_widths[hand_index]
+            lines.append(f"Ancho manual: {reference['width_px']:.1f} px" if reference else "Ancho manual: sin referencia")
         if widths is not None:
             measurement = widths[hand_index]
             if measurement is None:

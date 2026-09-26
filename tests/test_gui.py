@@ -38,6 +38,21 @@ class FakeSession:
 
 
 class WindowTests(unittest.TestCase):
+    def test_manual_width_controls_preserve_ring_size_and_invalidate_capture(self):
+        self.window.start()
+        self.window.manual_width_toggle.invoke()
+        self.window.manual_width_slider.set(80)
+        self.assertTrue(self.session.show_manual_width)
+        self.assertEqual(self.session.manual_width_ratio, .8)
+        self.assertEqual(self.window.size_value.get(), 100)
+        self.assertIsNone(self.window._displayed_snapshot)
+        self.window.stop()
+        self.window.start()
+        self.assertTrue(self.session.show_manual_width)
+        self.assertEqual(self.session.manual_width_ratio, .8)
+        self.window.manual_width_toggle.invoke()
+        self.assertFalse(self.session.show_manual_width)
+
     def test_size_control_invalidates_capture_and_survives_restart(self):
         self.assertEqual(self.window.size_value.get(), 100)
         self.window.start()
