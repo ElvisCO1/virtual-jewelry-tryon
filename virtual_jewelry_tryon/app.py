@@ -18,6 +18,7 @@ from .ring_overlay import load_ring, overlay_ring
 from .occlusion import METHOD as OCCLUSION_METHOD
 from .finger_width import estimate_width
 from .manual_width import width_reference, draw_width_reference
+from .virtual_background import VirtualBackground
 from .features import FINGER_WIDTH_ENABLED
 from .smoothing import HandPoseSmoother, RingPose
 from .hand_orientation import estimate_orientation, select_ring_view, SurfaceTracker
@@ -41,7 +42,8 @@ class FrameProcessor:
 
     def process(self, frame, show_references=True, manual_view=None, show_ring=True,
                 finger="ring", position=0.5, occlusion=False, size_factor=1.0, calibration=None,
-                measure_width=FINGER_WIDTH_ENABLED, show_manual_width=False, manual_width_ratio=0.6):
+                measure_width=FINGER_WIDTH_ENABLED, show_manual_width=False, manual_width_ratio=0.6,
+                background=None):
         """Return the annotated frame without opening a display window."""
         if not isfinite(size_factor) or not 0.5 <= size_factor <= 2.0:
             raise ValueError("Ring size factor must be between 0.5 and 2.0.")
@@ -87,6 +89,9 @@ class FrameProcessor:
                 if calibration and len(labels) == 1 and calibration['context'] == context:
                     measurement['width_mm'] = measurement['width_px'] * calibration['mm_per_pixel']
                 self.last_widths.append({'context': context, 'measurement': measurement})
+        # Only the display image is replaced, after all image-based measurements.
+        if background is not None:
+            frame = background.apply(frame)
         # Visibility affects drawing only; detection and ring geometry always run.
         if show_references:
             draw_landmarks(frame, result)
@@ -143,6 +148,7 @@ class FrameProcessor:
                              "show_ring": show_ring, "finger": finger, "size_factor": size_factor,
                              "width_measurement_enabled": measure_width,
                              "show_manual_width": show_manual_width,
+                             "virtual_background": bool(background and background.enabled),
                              "manual_width_ratio": manual_width_ratio,
                              "width_calibration": calibration if measure_width else None,
                              "occlusion": occlusion, "occlusion_method": OCCLUSION_METHOD if occlusion else None,
@@ -190,6 +196,7 @@ class PreviewSession:
         self.size_factor = 1.0
         self.show_manual_width = False
         self.manual_width_ratio = 0.6
+        self.background = VirtualBackground()
         self.calibration = None
         self.manual_view = None
 
@@ -226,10 +233,12 @@ class PreviewSession:
             frame, show_references=self.show_references, manual_view=self.manual_view,
             show_ring=self.show_ring, finger=self.finger, position=self.position,
             occlusion=self.occlusion, size_factor=self.size_factor, calibration=self.calibration,
-            show_manual_width=self.show_manual_width, manual_width_ratio=self.manual_width_ratio
+            show_manual_width=self.show_manual_width, manual_width_ratio=self.manual_width_ratio,
+            background=self.background
         )
 
     def stop(self):
+        self.background.close()
         self.calibration = None
         resources, self._resources = self._resources, None
         self.camera = self.processor = None

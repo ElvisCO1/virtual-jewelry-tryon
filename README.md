@@ -119,6 +119,28 @@ conecta los controles. La elección automática front/back continúa disponible.
 
 ### Distribución de los controles
 
+**Fondo virtual:** pulsa **Seleccionar imagen…** en **Cámara y visualización**,
+elige un JPG/PNG (por ejemplo `assets/backgrounds/peakpx.jpg`) y activa **Fondo
+virtual**. La imagen se ajusta conservando proporciones y recortando el sobrante
+para llenar el fondo. Desmarca la casilla para volver al vídeo original.
+
+Se utiliza [MediaPipe Image Segmenter](https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter/python)
+con Selfie Segmenter, sin entrenar modelos ni añadir dependencias. Descarga el
+modelo en instalaciones nuevas:
+
+```powershell
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite" -OutFile "models/selfie_segmenter.tflite"
+```
+
+Los landmarks y mediciones se calculan sobre el vídeo original. Después se
+sustituye el fondo en la visualización y se dibujan anillo y referencias. El
+modelo se ejecuta solo con la opción activa; se libera al desactivarla o parar
+la cámara. La imagen elegida se conserva durante la sesión. Si falla la
+segmentación, se desactiva el efecto y se muestra el error sin parar el seguimiento.
+Las muestras registran `settings.virtual_background`; no guardan la imagen
+personal ni su ruta. El recorte de dedos/cabello puede ser imperfecto y el
+procesamiento adicional puede reducir los FPS. Falta validación visual con webcam.
+
 **Referencia manual de ancho:** en **Cámara y visualización**, activa **Mostrar
 referencia de ancho** y ajusta su deslizador hasta que los extremos cian coincidan
 con los bordes del dedo. Puedes ocultar tanto el anillo como los landmarks;

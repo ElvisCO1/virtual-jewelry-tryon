@@ -2,7 +2,7 @@
 
 import tkinter as tk
 from math import isfinite
-from tkinter import ttk
+from tkinter import ttk, filedialog
 
 import cv2
 from PIL import Image, ImageTk
@@ -12,6 +12,7 @@ from .ring_catalog import load_catalog
 from .samples import SampleBuffer
 from .session_store import save_session
 from .features import FINGER_WIDTH_ENABLED
+from .virtual_background import BACKGROUND_DIRECTORY
 
 FINGER_LABELS = {"Pulgar": "thumb", "Índice": "index", "Medio": "middle",
                  "Anular": "ring", "Meñique": "little"}
@@ -93,6 +94,13 @@ class TryOnWindow:
         self.manual_width_description = tk.StringVar(value="Ancho manual: 60 % del segmento")
         ttk.Label(camera, textvariable=self.manual_width_description, wraplength=240).grid(
             row=11, column=0, columnspan=2, sticky="w")
+        self.background_enabled = tk.BooleanVar(value=False)
+        self.background_toggle = ttk.Checkbutton(camera, text="Fondo virtual", variable=self.background_enabled,
+                                                 command=self.toggle_background)
+        self.background_toggle.grid(row=12, column=0, sticky="w", pady=(8, 0))
+        ttk.Button(camera, text="Seleccionar imagen…", command=self.choose_background).grid(row=12, column=1, sticky="ew")
+        self.background_name = tk.StringVar(value="Sin imagen seleccionada")
+        ttk.Label(camera, textvariable=self.background_name, wraplength=240).grid(row=13, column=0, columnspan=2, sticky="w")
         self.mode = tk.StringVar(value=self._automatic_label)
         self.mode_selector = ttk.Combobox(views, textvariable=self.mode, state="readonly", width=24,
                                          values=(self._automatic_label, "Manual — 36 vistas"))
@@ -346,6 +354,33 @@ class TryOnWindow:
         ring = "habilitado" if self.session.show_ring else "oculto · Captura deshabilitada"
         self.status.set(f"Cámara {camera_state} · Anillo {ring} · Referencias {references} · d: datos en la terminal")
 
+    def choose_background(self):
+        path = filedialog.askopenfilename(parent=self.root, title="Seleccionar fondo virtual",
+            initialdir=str(BACKGROUND_DIRECTORY), filetypes=[("Imágenes", "*.jpg *.jpeg *.png")])
+        if not path:
+            return
+        try:
+            self.session.background.load(path)
+            self.background_name.set(self.session.background.path.name)
+            self._displayed_snapshot = None
+            self._refresh_capture()
+        except (OSError, ValueError, cv2.error) as error:
+            self.status.set(f"No se pudo cargar el fondo: {error}")
+
+    def toggle_background(self):
+        try:
+            if self.background_enabled.get():
+                self.session.background.prepare()
+            else:
+                self.session.background.close()
+            self.session.background.enabled = self.background_enabled.get()
+        except (OSError, ValueError, RuntimeError, cv2.error) as error:
+            self.background_enabled.set(False)
+            self.session.background.enabled = False
+            self.status.set(f"Fondo virtual desactivado: {error}")
+        self._displayed_snapshot = None
+        self._refresh_capture()
+
     def change_manual_width(self, event=None):
         self.session.show_manual_width = self.manual_width_visible.get()
         self.session.manual_width_ratio = self.manual_width_value.get() / 100
@@ -391,6 +426,11 @@ class TryOnWindow:
             return
         try:
             frame = self.session.read()
+            background = getattr(self.session, 'background', None)
+            if background is not None and background.error:
+                self.background_enabled.set(False)
+                self.status.set(f"Fondo desactivado: {background.error}")
+                background.error = None
             image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             # Fit the complete camera + measurements panel, preserving aspect ratio.
             image.thumbnail((max(1, self.preview.winfo_width()), max(1, self.preview.winfo_height())))

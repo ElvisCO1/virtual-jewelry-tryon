@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+/models/selfie_segmenter.tflite
 # Local manual validation evidence
 /data/sessions/
 
