@@ -1,4 +1,7 @@
 # Byte-compiled / optimized / DLL files
+# Local manual validation evidence
+/data/sessions/
+
 __pycache__/
 *.py[codz]
 *$py.class

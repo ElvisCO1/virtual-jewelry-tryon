@@ -5,6 +5,8 @@ from math import ceil
 import cv2
 import numpy as np
 
+from .occlusion import apply_occlusion
+
 
 def load_ring(path):
     """Load one tightly cropped BGRA PNG; its center is the placement anchor."""
@@ -44,7 +46,7 @@ def transform_ring(ring, width, finger_angle, asset_angle=-90):
                           borderValue=(0, 0, 0, 0))
 
 
-def overlay_ring(frame, ring, pose, asset_angle=-90):
+def overlay_ring(frame, ring, pose, asset_angle=-90, occlusion=False):
     """Blend a transformed ring in place, clipping safely at the frame edges."""
     if pose is None:
         return
@@ -61,6 +63,13 @@ def overlay_ring(frame, ring, pose, asset_angle=-90):
     if x1 >= x2 or y1 >= y2:
         return
     source = transformed[y1 - top:y2 - top, x1 - left:x2 - left]
+    if occlusion:
+        # Exclude transparent padding from the experimental width estimate.
+        occupied_columns = np.flatnonzero(np.any(ring[:, :, 3] > 0, axis=0))
+        if occupied_columns.size:
+            visible_width = min(max(1, pose.width), max_width) * (
+                occupied_columns[-1] - occupied_columns[0] + 1) / ring.shape[1]
+            source = apply_occlusion(source, x1, y1, pose.center, pose.angle, visible_width)
     target = frame[y1:y2, x1:x2]
     # Premultiplied source-over: C = C_ring * alpha + C_video * (1-alpha).
     blended = source[:, :, :3] * 255 + target * (1 - source[:, :, 3:4])

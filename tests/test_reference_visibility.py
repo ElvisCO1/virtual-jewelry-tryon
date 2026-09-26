@@ -30,6 +30,48 @@ def detection(hand_count=1):
 
 
 class ReferenceVisibilityTests(unittest.TestCase):
+    def test_hidden_ring_keeps_tracking_and_blocks_manual_validation(self):
+        detector = Mock()
+        detector.detect.return_value = detection()
+        processor = FrameProcessor(parse_args(['--ring', str(DEFAULT_RING_FRONT)]), detector)
+        view = SimpleNamespace(filename='ring.png', azimuth=0, elevation=0,
+                               width_scale=1.0, image=processor.ring)
+        frame = np.full((480, 640, 3), 80, dtype=np.uint8)
+        with patch('virtual_jewelry_tryon.app.overlay_ring') as overlay:
+            hidden = processor.process(frame.copy(), show_references=False, manual_view=view, show_ring=False)
+            overlay.assert_not_called()
+            np.testing.assert_array_equal(hidden[:480, :640], frame)
+            self.assertFalse(processor.last_snapshot['settings']['show_ring'])
+            self.assertFalse(processor.last_snapshot['hands'][0]['eligible'])
+            self.assertEqual(len(processor.last_snapshot['hands'][0]['landmarks_normalized']), 21)
+            processor.process(frame.copy(), manual_view=view)
+            overlay.assert_called_once()
+            self.assertTrue(processor.last_snapshot['hands'][0]['eligible'])
+        self.assertEqual(detector.detect.call_count, 2)
+
+    def test_manual_snapshot_tracks_frame_and_copies_coordinates(self):
+        detector = Mock()
+        detector.detect.return_value = detection()
+        processor = FrameProcessor(parse_args(['--geometry-only']), detector)
+        view = SimpleNamespace(filename='ring.png', azimuth=30, elevation=-30,
+                               width_scale=1.0, image=np.zeros((10, 10, 4), dtype=np.uint8))
+        frame = np.zeros((480, 640, 3), dtype=np.uint8)
+        processor.process(frame.copy(), show_references=False, manual_view=view)
+        snapshot = processor.last_snapshot
+        self.assertEqual(snapshot['frame_size'], [640, 480])
+        self.assertEqual(snapshot['image']['azimuth_category'], 30)
+        self.assertFalse(snapshot['settings']['show_references'])
+        hand = snapshot['hands'][0]
+        self.assertTrue(hand['eligible'])
+        self.assertEqual(len(hand['landmarks_normalized']), 21)
+        self.assertIsNone(hand['world_landmarks_m'])
+        detector.detect.return_value.hand_landmarks[0][0].x = .9
+        self.assertEqual(hand['landmarks_normalized'][0]['x'], .25)
+        processor.process(frame.copy(), manual_view=view)
+        self.assertNotEqual(snapshot['frame_id'], processor.last_snapshot['frame_id'])
+        processor.process(frame.copy())
+        self.assertIsNone(processor.last_snapshot)
+
     def test_hidden_marks_leave_camera_clean_and_keep_data_for_all_hands(self):
         frame = np.full((480, 640, 3), 80, dtype=np.uint8)
         for count in (0, 1, 2):

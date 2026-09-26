@@ -21,7 +21,7 @@ completo. El lienzo común deja al menos 16 píxeles de margen para todas las fu
 
 **Este centro es una aproximación visual, no el centro físico del aro ni una
 calibración del eje del dedo.** La piedra, reflejos y residuos conectados pueden
-afectar la estimación. Debe validarse manualmente cuando exista un selector de vistas.
+afectar la estimación. Puede validarse con el selector Manual — 36 vistas.
 Tampoco se ha corregido la orientación interna de las imágenes.
 
 Se conserva la escala en píxeles que tenían los originales, para no borrar las
@@ -42,12 +42,15 @@ intactos en las copias.
 El comando exige una colección completa y una carpeta de salida nueva; no
 sobrescribe imágenes existentes. Por defecto lee `pack_image_36/`.
 
-## Integración pendiente
+## Integración manual
 
-La aplicación sigue utilizando las dos imágenes demo. Estas copias todavía no
-están conectadas a un selector ni a una clasificación automática de 36 vistas.
+La aplicación utiliza las dos imágenes demo por defecto. El modo Manual — 36 vistas
+permite recorrer estas copias con Anterior/Siguiente, manteniendo el seguimiento.
+La parte 2 permite capturar datos numéricos y la vista elegida en memoria desde
+la interfaz. La parte 3 guarda sesiones y revisiones JSON en `data/sessions/`,
+sin fotografías. La clasificación automática de 36 vistas sigue pendiente.
 
-Al integrarlas debe considerarse que el escalado actual usa el ancho del lienzo:
+La integración compensa que el escalado actual usa el ancho del lienzo:
 añadir margen transparente cambia el tamaño aparente para el mismo ancho objetivo.
 Como las fuentes tenían 209 píxeles de ancho y las copias 288, para conservar la
 escala de una fuente concreta el ancho objetivo equivalente se multiplica por
